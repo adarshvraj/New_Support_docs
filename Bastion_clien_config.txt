@@ -1,0 +1,11 @@
+# cat .ssh/config
+
+Host host-a
+  User your_username
+  Hostname 10.0.0.5
+
+Host host_b
+  User your_username
+  Hostname 192.168.0.1
+  Port 22
+  ProxyCommand ssh -q -W %h:%p host-a
