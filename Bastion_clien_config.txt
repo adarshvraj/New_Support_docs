@@ -1,6 +1,22 @@
 # cat .ssh/config
 
+
+ssh key forwarding for bastion/jump box server to private server access 
+Host host_a							# Any host name we can choose but same thing need to mention after ProxyCommand
+IdentityFile ~/.ssh/pemfile/<sec.pem>		#this file location can be anywhere in the system
+User ec2-user								# Insted of ec2-user it's possible to mention any username that we need 
+Hostname <IP address/domain>
+
+Host 172.*										#Insted of 172.* we can mention CIDR or 172.168.0.*
+User ec2-user								# any user
+port 22                     # by default no need to mention the port else we can mention
+IdentityFile ~/.ssh/pemfile/<sec.pem>		#path of ssh key
+ProxyCommand ssh host_a -W %h:%p		# hostname is defined on first step
+
+Then the private server directly can access from local server
+************************************************************************************************************************************************************************************************************************************************************************************
 Host host-a
+  IdentityFile ~/.ssh/pemfile/<sec.pem>
   User your_username
   Hostname 10.0.0.5
 
@@ -9,3 +25,6 @@ Host host_b
   Hostname 192.168.0.1
   Port 22
   ProxyCommand ssh -q -W %h:%p host-a
+  
+  
+  
